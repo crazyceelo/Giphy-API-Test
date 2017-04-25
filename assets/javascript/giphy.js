@@ -4,6 +4,7 @@ $(document).ready(function(){
 	"snake", "hamster", "bear", "fish", 
 	"squid", "shrimp", "tiger", "cow"];
 
+	console.log(topics);
 	// loop to create all initial buttons on the page.
 	for (var i = 0; i < topics.length; i++){
 		var button = $("<button>");
@@ -12,6 +13,21 @@ $(document).ready(function(){
 		$(".buttonSection").append(button);
 		button.append(topics[i]);
 	}
+
+	$("#addButton").on("click", function(event){
+		// event.preventDefault();
+		// var input = $("#input").val().trim();
+		// topics.push(input);
+
+		var button = $("<button>");
+		button.addClass("buttons");
+		// button.attr("type", "text");
+		var input = $("#input").val().trim();
+		button.attr("data-animal", input);
+		button.text(input);
+		$(".buttonSection").append(button);
+
+	})
 
 	// clicking this button generates 10 gifs of the selecte animal from an API.
 	$(".buttons").on("click", function(){
@@ -24,7 +40,7 @@ $(document).ready(function(){
 			url: queryURL,
 			method: "GET"
 		}).done(function(response){
-			// console.log(response); // this works
+			console.log(response); // this works
 			for (var i = 0; i < response.data.length; i++){
 				var animalDiv = $("<div>");
 				var p = $("<p>").text("Rating: " + response.data[i].rating);
@@ -35,7 +51,7 @@ $(document).ready(function(){
 				// still string
 				animalGif.attr("data-state", "still");
 				// animated gif
-				animalGif.attr("data-animate", response.data[i].images.fixed_height.url);
+				animalGif.attr("data-animate", response.data[i].images.original.url);
 				// still gif
 				animalGif.attr("data-still", response.data[i].images.original_still.url);
 
@@ -45,7 +61,14 @@ $(document).ready(function(){
 			}
 
 			$(".gifImage").on("click", function() {
-				
+				if ($(this).attr("data-state") === "still") {
+					$(this).attr("src", $(this).attr("data-animate"));
+					$(this).attr("data-state", "animate");
+				}
+				else {
+					$(this).attr("src", $(this).attr("data-still"));
+					$(this).attr("data-state", "still");
+				}
 			})
 		})
 	})

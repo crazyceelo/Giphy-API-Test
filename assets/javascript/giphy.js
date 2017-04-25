@@ -15,18 +15,12 @@ $(document).ready(function(){
 	}
 
 	$("#addButton").on("click", function(event){
-		// event.preventDefault();
-		// var input = $("#input").val().trim();
-		// topics.push(input);
-
 		var button = $("<button>");
 		button.addClass("buttons");
-		// button.attr("type", "text");
 		var input = $("#input").val().trim();
 		button.attr("data-animal", input);
 		button.text(input);
 		$(".buttonSection").append(button);
-
 	})
 
 	// clicking this button generates 10 gifs of the selecte animal from an API.

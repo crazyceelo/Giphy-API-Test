@@ -4,7 +4,7 @@ $(document).ready(function(){
 	"snake", "hamster", "bear", "fish", 
 	"squid", "shrimp", "tiger", "cow"];
 
-	console.log(topics);
+	// console.log(topics);
 	// loop to create all initial buttons on the page.
 	for (var i = 0; i < topics.length; i++){
 		var button = $("<button>");
@@ -14,17 +14,23 @@ $(document).ready(function(){
 		button.append(topics[i]);
 	}
 
-	$("#addButton").on("click", function(event){
+	buttonSetUp();
+
+	$("#addButton").on("click", function(){
+		$(".buttons").off("click");
 		var button = $("<button>");
 		button.addClass("buttons");
 		var input = $("#input").val().trim();
 		button.attr("data-animal", input);
 		button.text(input);
 		$(".buttonSection").append(button);
+		buttonSetUp();
 	})
 
 	// clicking this button generates 10 gifs of the selecte animal from an API.
-	$(".buttons").on("click", function(){
+});
+	function buttonSetUp(){
+		$(".buttons").on("click", function(){
 		var animalType = $(this).data("animal");
 		// console.log(animalType); // this works
 		var queryURL = "http://api.giphy.com/v1/gifs/search?q="+animalType+"&api_key=dc6zaTOxFJmzC&limit=10";
@@ -34,7 +40,7 @@ $(document).ready(function(){
 			url: queryURL,
 			method: "GET"
 		}).done(function(response){
-			console.log(response); // this works
+			// console.log(response); // this works
 			for (var i = 0; i < response.data.length; i++){
 				var animalDiv = $("<div>");
 				var p = $("<p>").text("Rating: " + response.data[i].rating);
@@ -66,4 +72,5 @@ $(document).ready(function(){
 			})
 		})
 	})
-});
+}
+buttonSetUp();

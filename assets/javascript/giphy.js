@@ -36,7 +36,7 @@ $(document).ready(function(){
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q="+animalType+"&api_key=dc6zaTOxFJmzC&limit=10";
 		// console.log(queryURL); // this works
 
-		$.ajax({s
+		$.ajax({
 			url: queryURL,
 			method: "GET"
 		}).done(function(response){

@@ -33,10 +33,10 @@ $(document).ready(function(){
 		$(".buttons").on("click", function(){
 		var animalType = $(this).data("animal");
 		// console.log(animalType); // this works
-		var queryURL = "http://api.giphy.com/v1/gifs/search?q="+animalType+"&api_key=dc6zaTOxFJmzC&limit=10";
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q="+animalType+"&api_key=dc6zaTOxFJmzC&limit=10";
 		// console.log(queryURL); // this works
 
-		$.ajax({
+		$.ajax({s
 			url: queryURL,
 			method: "GET"
 		}).done(function(response){
